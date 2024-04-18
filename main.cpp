@@ -1,11 +1,16 @@
 #include <iostream>
-#include <string>
-#include <vector>
-
+#include <sqlite3.h>
+#include "utils/db/utils_db.h"
 using namespace std;
 
-int main(int argc, char const *argv[])
+int main()
 {
-    cout << "Hola mundo" << endl;
+    sqlite3 *DB;
+    int result = connectToDatabase(&DB);
+    if (result == -1)
+    {
+        return -1;
+    }
+
     return 0;
 }
