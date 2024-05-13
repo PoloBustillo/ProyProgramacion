@@ -50,6 +50,10 @@
         "map": "cpp",
         "optional": "cpp",
         "set": "cpp",
-        "unordered_map": "cpp"
+        "unordered_map": "cpp",
+        "deque": "cpp",
+        "list": "cpp",
+        "queue": "cpp",
+        "stack": "cpp"
     }
 }
