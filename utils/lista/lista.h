@@ -4,9 +4,11 @@
 #include <sqlite3.h>
 #include <vector>
 #include <algorithm>
+#include <iomanip>
 
 #include "./persona.h"
 #include "./nodo.h"
+#include "../functions.h"
 
 using namespace std;
 
@@ -78,25 +80,99 @@ public:
             actual->siguiente = nuevo;
         }
     }
+    void buscarPorID(int id)
+    {
+        Nodo *actual = cabeza;
+
+        while (actual != nullptr)
+        {
+            if (actual->persona.getID_Trabajador() == id)
+            {
+                Utils::mostrarEmpleado(actual);
+                return;
+            }
+            actual = actual->siguiente;
+        }
+
+        cout << "El empleado no se encontró en la nómina.\n";
+    }
+
+    void buscarPorNombre(string nombre, string apellidoPaterno, string apellidoMaterno)
+    {
+        Nodo *actual = cabeza;
+
+        while (actual != nullptr)
+        {
+            if (actual->persona.getNombre() == nombre &&
+                actual->persona.getApellidoPaterno() == apellidoPaterno &&
+                actual->persona.getApellidoMaterno() == apellidoMaterno)
+            {
+                Utils::mostrarEmpleado(actual);
+                return;
+            }
+            actual = actual->siguiente;
+        }
+
+        cout << "El empleado no se encontró en la nómina.\n";
+    }
+
+    void eliminarEmpleado(int id)
+    {
+        Nodo *actual = cabeza;
+        Nodo *previo = nullptr;
+
+        // Si la lista está vacía
+        if (actual == nullptr)
+        {
+            cout << "No existen empleados.\n";
+            return;
+        }
+
+        // Buscar el nodo con el ID dado
+        while (actual != nullptr && actual->persona.getID_Trabajador() != id)
+        {
+            previo = actual;
+            actual = actual->siguiente;
+        }
+
+        // Si no se encontró el ID
+        if (actual == nullptr)
+        {
+            cout << "No se encontró el empleado con ID " << id << ".\n";
+            return;
+        }
+
+        // Si el nodo a eliminar es el primer nodo
+        if (actual == cabeza)
+        {
+            cabeza = actual->siguiente;
+        }
+        // Si el nodo a eliminar es el último nodo
+        else if (actual->siguiente == nullptr)
+        {
+            previo->siguiente = nullptr;
+        }
+        // Si el nodo a eliminar está en medio
+        else
+        {
+            previo->siguiente = actual->siguiente;
+        }
+
+        delete actual;
+        cout << "Empleado con ID " << id << " eliminado.\n";
+        eliminarEmpleadoDB(id);
+    }
 
     void mostrar()
     {
         Nodo *actual = cabeza;
+        if (actual == nullptr)
+        {
+            cout << "No existen personas.\n";
+        }
         while (actual != nullptr)
         {
-            cout << "ID Trabajador: " << actual->persona.getID_Trabajador() << "\n"
-                 << "Nombre: " << actual->persona.getNombre() << "\n"
-                 << "Apellido Paterno: " << actual->persona.getApellidoPaterno() << "\n"
-                 << "Apellido Materno: " << actual->persona.getApellidoMaterno() << "\n"
-                 << "Sexo: " << actual->persona.getSexo() << "\n"
-                 << "Edad: " << actual->persona.getEdad() << "\n"
-                 << "Direccion: " << actual->persona.getDireccion() << "\n"
-                 << "Telefono: " << actual->persona.getTelefono() << "\n"
-                 << "Puesto: " << actual->persona.getPuesto() << "\n"
-                 << "Departamento: " << actual->persona.getDepartamento() << "\n"
-                 << "Horas Trabajadas: " << actual->persona.getHorasTrabajadas() << "\n"
-                 << "Costo por Hora: " << actual->persona.getCostoPorHora() << "\n"
-                 << "Sueldo: " << actual->persona.calcularSueldo() << "\n\n";
+            Utils::mostrarEmpleado(actual);
             actual = actual->siguiente;
         }
     }
@@ -146,7 +222,32 @@ public:
             cout << "¡Conectado a la DB!" << endl;
         }
     }
+    void eliminarEmpleadoDB(int id)
+    {
+        const char *sql = "DELETE FROM PERSONAS WHERE ID_Trabajador = ?";
+        sqlite3_stmt *stmt;
 
+        if (sqlite3_prepare_v2(DB, sql, -1, &stmt, NULL) != SQLITE_OK)
+        {
+            cerr << "Error: " << sqlite3_errmsg(DB) << endl;
+            throw(404);
+        }
+
+        if (sqlite3_bind_int(stmt, 1, id) != SQLITE_OK)
+        {
+            cerr << "Error: " << sqlite3_errmsg(DB) << endl;
+            throw(404);
+        }
+
+        if (sqlite3_step(stmt) != SQLITE_DONE)
+        {
+            cerr << "Error: " << sqlite3_errmsg(DB) << endl;
+            throw(404);
+        }
+
+        cout << "Empleado con ID " << id << " eliminado de la base de datos.\n";
+        sqlite3_finalize(stmt);
+    }
     long long insertPersona(const Persona &persona)
     {
         const char *sql = "INSERT INTO PERSONAS(Nombre, ApellidoPaterno, ApellidoMaterno, Sexo, Edad, Direccion, Telefono, Puesto, Departamento, HorasTrabajadas, CostoPorHora) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";

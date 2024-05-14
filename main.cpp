@@ -31,13 +31,38 @@ int main()
                 lista->mostrar();
                 break;
             case 3:
-                // Código para dar de baja un empleado
+                int id;
+                cout << "¿Qué empleado deseas eliminar? Dame por favor su ID: ";
+                cin >> id;
+                lista->eliminarEmpleado(id);
                 break;
             case 4:
                 // Código para realizar cambios en la nómina
                 break;
             case 5:
                 // Código para consultar información de un empleado
+                int opcion;
+                cout << "¿Deseas buscar por 1) ID o 2) Nombre? ";
+                cin >> opcion;
+
+                if (opcion == 1)
+                {
+                    int id;
+                    cout << "¿Qué empleado deseas consultar? Dame por favor su ID: ";
+                    cin >> id;
+                    lista->buscarPorID(id);
+                }
+                else if (opcion == 2)
+                {
+                    string nombre, apellidoPaterno, apellidoMaterno;
+                    cout << "¿Qué empleado deseas consultar? Dame por favor su nombre completo: ";
+                    cin >> nombre >> apellidoPaterno >> apellidoMaterno;
+                    lista->buscarPorNombre(nombre, apellidoPaterno, apellidoMaterno);
+                }
+                else
+                {
+                    cout << "Opción no válida. Por favor, elige 1 o 2.\n";
+                }
                 break;
             case 6:
                 cout << "Saliendo...\n";

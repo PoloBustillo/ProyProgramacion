@@ -1,6 +1,9 @@
+#pragma once
 #include <string>
 #include <iostream>
 #include "./lista/persona.h"
+#include "./lista/nodo.h"
+#include <iomanip>
 
 using namespace std;
 
@@ -9,6 +12,7 @@ class Utils
 public:
     static int imprimirMenu();
     static Persona guardarDatos();
+    static void mostrarEmpleado(Nodo *actual);
 
 private:
     static bool es_string(const string &s)
@@ -75,15 +79,55 @@ Persona Utils::guardarDatos()
 int Utils::imprimirMenu()
 {
     int option;
-    cout << "\n********** MENU **********\n";
-    cout << "1. Dar de Alta un nuevo empleado\n";
-    cout << "2. Mostrar Nómina de empleados\n";
-    cout << "3. Dar de baja un empleado\n";
-    cout << "4. Realizar cambios en la nómina\n";
-    cout << "5. Consultar información de un empleado\n";
-    cout << "6. Salir\n";
-    cout << "**************************\n";
+    string options[] = {
+        "1. Dar de Alta un nuevo empleado",
+        "2. Mostrar Nómina de empleados",
+        "3. Dar de baja un empleado",
+        "4. Realizar cambios en la nómina",
+        "5. Consultar información de un empleado",
+        "6. Salir"};
+    cout << right << setw(54) << "\n"
+         << setw(54) << setfill('*') << " MENU " << setfill('*') << setw(50) << "\n";
+    cout << setfill(' ');
+    int consoleWidth = 100; // Change this to your console's width
+    for (const auto &option : options)
+    {
+        int padding = (consoleWidth - option.size()) / 2;
+        cout << setw(padding) << "" << option << "\n";
+    }
+    cout << setw(104) << setfill('*') << "" << setfill(' ') << "\n\n";
     cout << "Elige una opción: ";
     cin >> option;
     return option;
+}
+
+void Utils::mostrarEmpleado(Nodo *actual)
+{
+    cout << left << setw(5) << "ID" << "|"
+         << setw(10) << "Nombre" << "|"
+         << setw(10) << "ApellidoP" << "|"
+         << setw(10) << "ApellidoM" << "|"
+         << setw(6) << "Sexo" << "|"
+         << setw(4) << "Edad" << "|"
+         << setw(20) << "Direccion" << "|"
+         << setw(10) << "Telefono" << "|"
+         << setw(8) << "Puesto" << "|"
+         << setw(10) << "Dep." << "|"
+         << setw(6) << "HorasT" << "|"
+         << setw(6) << "CostoH" << "|"
+         << setw(6) << "Sueldo" << "\n";
+
+    cout << setw(5) << actual->persona.getID_Trabajador() << "|"
+         << setw(10) << actual->persona.getNombre() << "|"
+         << setw(10) << actual->persona.getApellidoPaterno() << "|"
+         << setw(10) << actual->persona.getApellidoMaterno() << "|"
+         << setw(6) << actual->persona.getSexo() << "|"
+         << setw(4) << actual->persona.getEdad() << "|"
+         << setw(20) << actual->persona.getDireccion() << "|"
+         << setw(10) << actual->persona.getTelefono() << "|"
+         << setw(8) << actual->persona.getPuesto() << "|"
+         << setw(10) << actual->persona.getDepartamento() << "|"
+         << setw(6) << actual->persona.getHorasTrabajadas() << "|"
+         << setw(6) << actual->persona.getCostoPorHora() << "|"
+         << setw(6) << actual->persona.calcularSueldo() << "\n\n";
 }
