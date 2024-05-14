@@ -23,7 +23,7 @@ public:
     static void mostrarEmpleado(Nodo *actual);
     static void handleError(int error);
     static string obtenerEntradaValida(const string &mensaje);
-    static int obtenerNumeroValido(const std::string &mensaje, int min, long max);
+    static long obtenerNumeroValido(const std::string &mensaje, int min, long max);
     static string obtenerEntradaConEspacios(const string &mensaje);
 
 private:
@@ -52,10 +52,11 @@ const string Utils::SEARCH_OPTION_PROMPT = "¿Deseas buscar por 1) ID o 2) Nombr
 const string Utils::DELET_EMPLOYEE_PROMPT = "¿Qué empleado deseas eliminar? Dame por favor su ID: ";
 const int Utils::EXIT_OPTION = 6;
 
-int Utils::obtenerNumeroValido(const std::string &mensaje, int min, long max)
+long Utils::obtenerNumeroValido(const std::string &mensaje, int min, long max)
 {
-    int numero;
+    long numero;
     cout << mensaje;
+
     while (!(cin >> numero) || numero < min || numero > max)
     {
         cout << "Entrada inválida. Por favor, introduce un número entre " << min << " y " << max << ": ";

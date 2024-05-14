@@ -157,6 +157,20 @@ public:
         cout << "Empleado con ID " << id << " eliminado.\n";
         eliminarEmpleadoDB(id);
     }
+    void modificarPorID(int id, const Persona &nuevaPersona)
+    {
+        Nodo *actual = cabeza;
+        while (actual != nullptr)
+        {
+            if (actual->persona.getID_Trabajador() == id)
+            {
+                actual->persona = nuevaPersona;
+                return;
+            }
+            actual = actual->siguiente;
+        }
+        cout << "No se encontró ninguna persona con el ID " << id << ".\n";
+    }
     void mostrar()
     {
         Nodo *actual = cabeza;
