@@ -100,9 +100,12 @@ Persona Utils::guardarDatos()
     ApellidoMaterno = obtenerEntradaValida("Escriba Apellido Materno: ");
     Sexo = obtenerEntradaValida("Escriba Sexo: ");
     Edad = obtenerNumeroValido("Escriba Edad: ", 0, 150);
-    Direccion = obtenerEntradaValida("Escriba Direccion: ");
-    Telefono = obtenerEntradaValida("Escriba Telefono: ");
+    cout << "Escriba Dirección: ";
+    cin >> Direccion;
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    Telefono = obtenerNumeroValido("Escriba Telefono: ", 0, 999999999);
     Puesto = obtenerEntradaValida("Escriba Puesto: ");
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
     Departamento = obtenerEntradaValida("Escriba Departamento: ");
     HorasTrabajadas = obtenerNumeroValido("Escriba Horas Trabajadas: ", 0, 2400);
     CostoPorHora = obtenerNumeroValido("Escriba Costo Por Hora: ", 0, 700);
