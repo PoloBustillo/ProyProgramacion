@@ -24,12 +24,24 @@ public:
     static void handleError(int error);
     static string obtenerEntradaValida(const string &mensaje);
     static int obtenerNumeroValido(const std::string &mensaje, int min, long max);
+    static string obtenerEntradaConEspacios(const string &mensaje);
 
 private:
     static bool es_string(const string &s)
     {
         return all_of(s.begin(), s.end(), ::isalpha);
     };
+    static bool es_string_espacios(const string &str)
+    {
+        for (char c : str)
+        {
+            if (!isalpha(c) && !isspace(c))
+            {
+                return false;
+            }
+        }
+        return true;
+    }
 };
 
 const string Utils::INVALID_OPTION = "Opción no válida. Por favor, elige otra.\n";
@@ -52,6 +64,18 @@ int Utils::obtenerNumeroValido(const std::string &mensaje, int min, long max)
     }
     return numero;
 }
+string Utils::obtenerEntradaConEspacios(const string &mensaje)
+{
+    string entrada;
+    cout << mensaje;
+    getline(cin, entrada);
+    while (!es_string_espacios(entrada))
+    {
+        cout << "La entrada tiene que ser caracteres. " << mensaje;
+        getline(cin, entrada);
+    }
+    return entrada;
+};
 string Utils::obtenerEntradaValida(const string &mensaje)
 {
     string entrada;
@@ -95,7 +119,7 @@ Persona Utils::guardarDatos()
     cout << "Por favor, introduce los siguientes datos:\n";
 
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
-    Nombre = obtenerEntradaValida("Escriba Nombre:");
+    Nombre = obtenerEntradaConEspacios("Escriba Nombre:");
     ApellidoPaterno = obtenerEntradaValida("Escriba Apellido Paterno: ");
     ApellidoMaterno = obtenerEntradaValida("Escriba Apellido Materno: ");
     Sexo = obtenerEntradaValida("Escriba Sexo: ");
