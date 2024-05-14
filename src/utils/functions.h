@@ -23,7 +23,7 @@ public:
     static void mostrarEmpleado(Nodo *actual);
     static void handleError(int error);
     static string obtenerEntradaValida(const string &mensaje);
-    static int obtenerNumeroValido(const std::string &mensaje, int min, int max);
+    static int obtenerNumeroValido(const std::string &mensaje, int min, long max);
 
 private:
     static bool es_string(const string &s)
@@ -40,7 +40,7 @@ const string Utils::SEARCH_OPTION_PROMPT = "¿Deseas buscar por 1) ID o 2) Nombr
 const string Utils::DELET_EMPLOYEE_PROMPT = "¿Qué empleado deseas eliminar? Dame por favor su ID: ";
 const int Utils::EXIT_OPTION = 6;
 
-int Utils::obtenerNumeroValido(const std::string &mensaje, int min, int max)
+int Utils::obtenerNumeroValido(const std::string &mensaje, int min, long max)
 {
     int numero;
     cout << mensaje;
@@ -99,11 +99,12 @@ Persona Utils::guardarDatos()
     ApellidoPaterno = obtenerEntradaValida("Escriba Apellido Paterno: ");
     ApellidoMaterno = obtenerEntradaValida("Escriba Apellido Materno: ");
     Sexo = obtenerEntradaValida("Escriba Sexo: ");
-    Edad = obtenerNumeroValido("Escriba Edad: ", 0, 150);
+    Edad = obtenerNumeroValido("Escriba Edad: ", 18, 100);
     cout << "Escriba Dirección: ";
     cin >> Direccion;
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
-    Telefono = obtenerNumeroValido("Escriba Telefono: ", 0, 999999999);
+    Telefono = obtenerNumeroValido("Escriba Telefono: ", 0, 10000000000L);
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
     Puesto = obtenerEntradaValida("Escriba Puesto: ");
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
     Departamento = obtenerEntradaValida("Escriba Departamento: ");
