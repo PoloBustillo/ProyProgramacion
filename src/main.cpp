@@ -38,7 +38,11 @@ int main()
                 lista->mostrar();
                 break;
             case 4:
-
+                cout << Utils::MODIFY_EMPLOYEE_PROMPT;
+                cin >> ID_Trabajador;
+                lista->buscarPorID(id);
+                nuevaPersona = Utils::guardarDatos();
+                lista->modificarPorID(ID_Trabajador, nuevaPersona);
                 break;
             case 5:
                 int opcion;

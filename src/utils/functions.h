@@ -16,6 +16,7 @@ public:
     static const string EMPLOYEE_NAME_PROMPT;
     static const string SEARCH_OPTION_PROMPT;
     static const string DELET_EMPLOYEE_PROMPT;
+    static const string MODIFY_EMPLOYEE_PROMPT;
     static const int EXIT_OPTION;
 
     static int imprimirMenu();
@@ -50,6 +51,7 @@ const string Utils::EMPLOYEE_ID_PROMPT = "¿Qué empleado deseas consultar? Dame
 const string Utils::EMPLOYEE_NAME_PROMPT = "¿Qué empleado deseas consultar? Dame por favor su nombre completo: ";
 const string Utils::SEARCH_OPTION_PROMPT = "¿Deseas buscar por 1) ID o 2) Nombre? ";
 const string Utils::DELET_EMPLOYEE_PROMPT = "¿Qué empleado deseas eliminar? Dame por favor su ID: ";
+const string Utils::MODIFY_EMPLOYEE_PROMPT = "¿Qué empleado deseas modificar? Dame por favor su ID: ";
 const int Utils::EXIT_OPTION = 6;
 
 long Utils::obtenerNumeroValido(const std::string &mensaje, int min, long max)

@@ -157,6 +157,7 @@ public:
         cout << "Empleado con ID " << id << " eliminado.\n";
         eliminarEmpleadoDB(id);
     }
+
     void modificarPorID(int id, const Persona &nuevaPersona)
     {
         Nodo *actual = cabeza;
