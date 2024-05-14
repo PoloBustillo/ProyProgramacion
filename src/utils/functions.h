@@ -127,7 +127,7 @@ Persona Utils::guardarDatos()
     cout << "Escriba Dirección: ";
     cin >> Direccion;
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
-    Telefono = obtenerNumeroValido("Escriba Telefono: ", 0, 9999999999L);
+    Telefono = obtenerNumeroValido("Escriba Telefono: ", 0, 99999999999L);
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
     Puesto = obtenerEntradaValida("Escriba Puesto: ");
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
