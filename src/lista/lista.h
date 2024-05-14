@@ -18,7 +18,6 @@ private:
     Nodo *cabeza;
     static Lista *instancia;
     sqlite3 *DB;
-
     // Constructor privado
     Lista() : cabeza(nullptr){};
 
@@ -59,7 +58,6 @@ public:
             actual->siguiente = nuevo;
         }
     }
-
     void agregar_al_final(Persona p)
     {
         Nodo *nuevo = new Nodo;
@@ -95,7 +93,6 @@ public:
 
         cout << "El empleado no se encontró en la nómina.\n";
     }
-
     void buscarPorNombre(string nombre, string apellidoPaterno, string apellidoMaterno)
     {
         Nodo *actual = cabeza;
@@ -114,7 +111,6 @@ public:
 
         cout << "El empleado no se encontró en la nómina.\n";
     }
-
     void eliminarEmpleado(int id)
     {
         Nodo *actual = cabeza;
@@ -161,7 +157,6 @@ public:
         cout << "Empleado con ID " << id << " eliminado.\n";
         eliminarEmpleadoDB(id);
     }
-
     void mostrar()
     {
         Nodo *actual = cabeza;
@@ -184,13 +179,13 @@ public:
                           "Nombre TEXT NOT NULL,"
                           "ApellidoPaterno TEXT NOT NULL,"
                           "ApellidoMaterno TEXT NOT NULL,"
-                          "Sexo CHAR(1) NOT NULL,"
+                          "Sexo TEXT NOT NULL,"
                           "Edad INT NOT NULL,"
                           "Direccion TEXT,"
                           "Telefono CHAR(10),"
                           "Puesto TEXT,"
                           "Departamento TEXT,"
-                          "HorasTrabajadas INT,"
+                          "HorasTrabajadas REAL,"
                           "CostoPorHora REAL );";
 
         int exit = sqlite3_exec(DB, sql, NULL, 0, &errMsg);
@@ -280,7 +275,6 @@ public:
         long long id = sqlite3_last_insert_rowid(DB);
         return id;
     }
-
     void populateList()
     {
         const char *sql = "SELECT * FROM PERSONAS";
@@ -302,7 +296,7 @@ public:
                 persona.setTelefono(string(reinterpret_cast<const char *>(sqlite3_column_text(stmt, 7))));
                 persona.setPuesto(string(reinterpret_cast<const char *>(sqlite3_column_text(stmt, 8))));
                 persona.setDepartamento(string(reinterpret_cast<const char *>(sqlite3_column_text(stmt, 9))));
-                persona.setHorasTrabajadas(sqlite3_column_int(stmt, 10));
+                persona.setHorasTrabajadas(sqlite3_column_double(stmt, 10));
                 persona.setCostoPorHora(sqlite3_column_double(stmt, 11));
                 personas.push_back(persona);
             }

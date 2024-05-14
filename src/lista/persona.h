@@ -17,12 +17,12 @@ private:
     string Telefono;
     string Puesto;
     string Departamento;
-    int HorasTrabajadas;
+    double HorasTrabajadas;
     double CostoPorHora;
 
 public:
     Persona() {}
-    Persona(string Nombre, string ApellidoPaterno, string ApellidoMaterno, string Sexo, int Edad, string Direccion, string Telefono, string Puesto, string Departamento, int HorasTrabajadas, double CostoPorHora)
+    Persona(string Nombre, string ApellidoPaterno, string ApellidoMaterno, string Sexo, int Edad, string Direccion, string Telefono, string Puesto, string Departamento, double HorasTrabajadas, double CostoPorHora)
         : Nombre(Nombre), ApellidoPaterno(ApellidoPaterno), ApellidoMaterno(ApellidoMaterno), Sexo(Sexo), Edad(Edad), Direccion(Direccion), Telefono(Telefono), Puesto(Puesto), Departamento(Departamento), HorasTrabajadas(HorasTrabajadas), CostoPorHora(CostoPorHora) {}
 
     // Método para calcular el sueldo
@@ -41,7 +41,7 @@ public:
     string getTelefono() const { return Telefono; }
     string getPuesto() const { return Puesto; }
     string getDepartamento() const { return Departamento; }
-    int getHorasTrabajadas() const { return HorasTrabajadas; }
+    double getHorasTrabajadas() const { return HorasTrabajadas; }
     double getCostoPorHora() const { return CostoPorHora; }
 
     // Setters
@@ -55,6 +55,6 @@ public:
     void setTelefono(const string &telefono) { Telefono = telefono; }
     void setPuesto(const string &puesto) { Puesto = puesto; }
     void setDepartamento(const string &departamento) { Departamento = departamento; }
-    void setHorasTrabajadas(int horas) { HorasTrabajadas = horas; }
+    void setHorasTrabajadas(double horas) { HorasTrabajadas = horas; }
     void setCostoPorHora(double costo) { CostoPorHora = costo; }
 };

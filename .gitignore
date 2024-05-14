@@ -1,3 +1,4 @@
 /build/*
 /.cache/*
+/.vscode/*
 /main.dSYM/Contents/Resources/DWARF/main

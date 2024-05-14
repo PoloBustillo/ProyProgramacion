@@ -1,7 +1,7 @@
 # Proyecto de programación
 TODO
 ## Run in mac:
-> **g++ ./main.cpp -o main -lsqlite3 && ./main**
+> **g++ -g ./src/main.cpp -o main -lsqlite3 -std=c++11 && ./main**
 
 ## Run in windows:
 > **g++ ./main.cpp -o main -lsqlite3; ./main**
