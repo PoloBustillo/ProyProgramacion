@@ -1,7 +1,7 @@
 #include <iostream>
 #include <sqlite3.h>
-#include "utils/lista/lista.h"
-#include "utils/lista/persona.h"
+#include "lista/lista.h"
+#include "lista/persona.h"
 #include "utils/functions.h"
 
 using namespace std;
@@ -32,59 +32,51 @@ int main()
                 break;
             case 3:
                 int id;
-                cout << "¿Qué empleado deseas eliminar? Dame por favor su ID: ";
+                cout << Utils::DELET_EMPLOYEE_PROMPT;
                 cin >> id;
                 lista->eliminarEmpleado(id);
+                lista->mostrar();
                 break;
             case 4:
-                // Código para realizar cambios en la nómina
+
                 break;
             case 5:
-                // Código para consultar información de un empleado
                 int opcion;
-                cout << "¿Deseas buscar por 1) ID o 2) Nombre? ";
+                cout << Utils::SEARCH_OPTION_PROMPT;
                 cin >> opcion;
+                lista->mostrar();
 
                 if (opcion == 1)
                 {
                     int id;
-                    cout << "¿Qué empleado deseas consultar? Dame por favor su ID: ";
+                    cout << Utils::EMPLOYEE_ID_PROMPT;
                     cin >> id;
                     lista->buscarPorID(id);
                 }
                 else if (opcion == 2)
                 {
                     string nombre, apellidoPaterno, apellidoMaterno;
-                    cout << "¿Qué empleado deseas consultar? Dame por favor su nombre completo: ";
+                    cout << Utils::EMPLOYEE_NAME_PROMPT;
                     cin >> nombre >> apellidoPaterno >> apellidoMaterno;
                     lista->buscarPorNombre(nombre, apellidoPaterno, apellidoMaterno);
                 }
                 else
                 {
-                    cout << "Opción no válida. Por favor, elige 1 o 2.\n";
+                    cout << Utils::INVALID_OPTION;
                 }
                 break;
-            case 6:
-                cout << "Saliendo...\n";
+            case Utils::EXIT_OPTION:
+                cout << Utils::EXITING;
                 break;
             default:
-                cout << "Opción no válida. Por favor, elige una opción del 1 al 6.\n";
+                cout << Utils::INVALID_OPTION;
                 break;
             }
         } while (option != 6);
     }
     catch (int error)
     {
-        if (error == 500)
-        {
-            cout << "Error al crear Tabla" << endl;
-            return -1;
-        }
-        if (error == 404)
-        {
-            cout << "Error al conectar con DB" << endl;
-            return -1;
-        }
+        Utils::handleError(error);
     }
 
     return 0;

@@ -23,9 +23,8 @@ private:
 public:
     Persona() {}
     Persona(string Nombre, string ApellidoPaterno, string ApellidoMaterno, string Sexo, int Edad, string Direccion, string Telefono, string Puesto, string Departamento, int HorasTrabajadas, double CostoPorHora)
-        : Nombre(Nombre), ApellidoPaterno(ApellidoPaterno), ApellidoMaterno(ApellidoMaterno), Sexo(Sexo), Edad(Edad), Direccion(Direccion), Telefono(Telefono), Puesto(Puesto), Departamento(Departamento), HorasTrabajadas(HorasTrabajadas), CostoPorHora(CostoPorHora)
-    {
-    }
+        : Nombre(Nombre), ApellidoPaterno(ApellidoPaterno), ApellidoMaterno(ApellidoMaterno), Sexo(Sexo), Edad(Edad), Direccion(Direccion), Telefono(Telefono), Puesto(Puesto), Departamento(Departamento), HorasTrabajadas(HorasTrabajadas), CostoPorHora(CostoPorHora) {}
+
     // Método para calcular el sueldo
     double calcularSueldo() const
     {

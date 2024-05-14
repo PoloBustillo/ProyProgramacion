@@ -5,10 +5,9 @@
 #include <vector>
 #include <algorithm>
 #include <iomanip>
-
 #include "./persona.h"
 #include "./nodo.h"
-#include "../functions.h"
+#include "../utils/functions.h"
 
 using namespace std;
 
@@ -255,7 +254,7 @@ public:
 
         if (sqlite3_prepare_v2(DB, sql, -1, &stmt, NULL) != SQLITE_OK)
         {
-            cout << "Could not prepare statement: " << sqlite3_errmsg(DB) << endl;
+            cout << "La query no esta bien construida: " << sqlite3_errmsg(DB) << endl;
             return -1;
         }
 
@@ -273,7 +272,7 @@ public:
 
         if (sqlite3_step(stmt) != SQLITE_DONE)
         {
-            cout << "Could not execute statement: " << sqlite3_errmsg(DB) << endl;
+            cout << "No se pudo ejecutar la query: " << sqlite3_errmsg(DB) << endl;
         }
 
         sqlite3_finalize(stmt);
