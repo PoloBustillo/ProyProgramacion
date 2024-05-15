@@ -1,6 +1,6 @@
 #pragma once
 #include <string>
-#include <iostream>
+#include "../sqlite/sqlite3.h"
 #include "../lista/persona.h"
 #include "../lista/nodo.h"
 #include <iomanip>
@@ -132,7 +132,7 @@ Persona Utils::guardarDatos()
     cout << "Escriba Dirección: ";
     cin >> Direccion;
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
-    Telefono = to_string(obtenerNumeroValido("Escriba Telefono: ", 0, 99999999999L));
+    Telefono = to_string(obtenerNumeroValido("Escriba Telefono: ", 0, 99999));
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
     Puesto = obtenerEntradaValida("Escriba Puesto: ");
     Departamento = obtenerEntradaValida("Escriba Departamento: ");

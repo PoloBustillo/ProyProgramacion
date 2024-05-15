@@ -1,5 +1,5 @@
 #include <iostream>
-#include <sqlite3.h>
+#include "./sqlite/sqlite3.h"
 #include "lista/lista.h"
 #include "lista/persona.h"
 #include "utils/functions.h"
