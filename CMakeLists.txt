@@ -1,9 +1,8 @@
 cmake_minimum_required(VERSION 3.22)
 project(proyecto)
-add_executable(proyecto main.cpp)
 
-include_directories(/sqlite)
-link_directories(/sqlite)
-find_package(SqliteOrm REQUIRED)
+set(CMAKE_CXX_STANDARD 20)
 
-target_link_libraries(proyecto PRIVATE sqlite_orm::sqlite_orm)
+add_executable(proyecto src/main.cpp src/sqlite/sqlite3.c)
+
+

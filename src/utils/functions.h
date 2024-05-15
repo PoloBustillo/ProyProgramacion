@@ -4,7 +4,7 @@
 #include "../lista/persona.h"
 #include "../lista/nodo.h"
 #include <iomanip>
-
+#include <limits>
 using namespace std;
 
 class Utils
@@ -132,7 +132,7 @@ Persona Utils::guardarDatos()
     cout << "Escriba Dirección: ";
     cin >> Direccion;
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
-    Telefono = to_string(obtenerNumeroValido("Escriba Telefono: ", 0, 99999));
+    Telefono = to_string(obtenerNumeroValido("Escriba Telefono: ", 0, 99999999L));
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
     Puesto = obtenerEntradaValida("Escriba Puesto: ");
     Departamento = obtenerEntradaValida("Escriba Departamento: ");
