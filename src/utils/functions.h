@@ -129,7 +129,7 @@ Persona Utils::guardarDatos()
     ApellidoMaterno = obtenerEntradaValida("Escriba Apellido Materno: ");
     Sexo = obtenerEntradaValida("Escriba Sexo: ");
     Edad = obtenerNumeroValido("Escriba Edad: ", 18, 100);
-    cout << "Escriba Dirección: ";
+    cout << "Escriba Direccion:";
     cin >> Direccion;
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
     Telefono = to_string(obtenerNumeroValido("Escriba Telefono: ", 0, 99999999L));
