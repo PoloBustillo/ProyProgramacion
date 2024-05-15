@@ -77,7 +77,7 @@ public:
             actual->siguiente = nuevo;
         }
     }
-    void buscarPorID(int id)
+    Persona buscarPorID(int id)
     {
         Nodo *actual = cabeza;
 
@@ -86,12 +86,13 @@ public:
             if (actual->persona.getID_Trabajador() == id)
             {
                 Utils::mostrarEmpleado(actual);
-                return;
+                return actual->persona;
             }
             actual = actual->siguiente;
         }
 
         cout << "El empleado no se encontró en la nómina.\n";
+        return Persona(); // Return a default-constructed Persona object
     }
     void buscarPorNombre(string nombre, string apellidoPaterno, string apellidoMaterno)
     {
@@ -256,6 +257,42 @@ public:
 
         cout << "Empleado con ID " << id << " eliminado de la base de datos.\n";
         sqlite3_finalize(stmt);
+    }
+    bool updatePersona(const Persona &persona, int id)
+    {
+        const char *sql = "UPDATE PERSONAS SET Nombre = ?, ApellidoPaterno = ?, ApellidoMaterno = ?, Sexo = ?, Edad = ?, Direccion = ?, Telefono = ?, Puesto = ?, Departamento = ?, HorasTrabajadas = ?, CostoPorHora = ? WHERE ID_Trabajador = ?";
+        sqlite3_stmt *stmt;
+
+        if (sqlite3_prepare_v2(DB, sql, -1, &stmt, NULL) != SQLITE_OK)
+        {
+            cout << "La query no esta bien construida: " << sqlite3_errmsg(DB) << endl;
+            return false;
+        }
+
+        // Bind the parameters
+        sqlite3_bind_text(stmt, 1, persona.getNombre().c_str(), -1, SQLITE_STATIC);
+        sqlite3_bind_text(stmt, 2, persona.getApellidoPaterno().c_str(), -1, SQLITE_STATIC);
+        sqlite3_bind_text(stmt, 3, persona.getApellidoMaterno().c_str(), -1, SQLITE_STATIC);
+        sqlite3_bind_text(stmt, 4, persona.getSexo().c_str(), -1, SQLITE_STATIC);
+        sqlite3_bind_int(stmt, 5, persona.getEdad());
+        sqlite3_bind_text(stmt, 6, persona.getDireccion().c_str(), -1, SQLITE_STATIC);
+        sqlite3_bind_text(stmt, 7, persona.getTelefono().c_str(), -1, SQLITE_STATIC);
+        sqlite3_bind_text(stmt, 8, persona.getPuesto().c_str(), -1, SQLITE_STATIC);
+        sqlite3_bind_text(stmt, 9, persona.getDepartamento().c_str(), -1, SQLITE_STATIC);
+        sqlite3_bind_int(stmt, 10, persona.getHorasTrabajadas());
+        sqlite3_bind_double(stmt, 11, persona.getCostoPorHora());
+        sqlite3_bind_int(stmt, 12, id); // Bind the ID
+
+        int rc = sqlite3_step(stmt);
+        if (rc != SQLITE_DONE)
+        {
+            cout << "No se pudo ejecutar la query: " << sqlite3_errmsg(DB) << endl;
+            sqlite3_finalize(stmt);
+            return false;
+        }
+
+        sqlite3_finalize(stmt);
+        return true;
     }
     long long insertPersona(const Persona &persona)
     {

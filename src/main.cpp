@@ -15,6 +15,8 @@ int main()
         int ID_Trabajador;
         int option;
         int id;
+        bool empleadoEnLista = false;
+        Persona persona;
 
         do
         {
@@ -40,9 +42,19 @@ int main()
             case 4:
                 cout << Utils::MODIFY_EMPLOYEE_PROMPT;
                 cin >> id;
-                lista->buscarPorID(id);
-                nuevaPersona = Utils::guardarDatos();
-                lista->modificarPorID(ID_Trabajador, nuevaPersona);
+                persona = lista->buscarPorID(id);
+                if (persona.getID_Trabajador() == id)
+                {
+                    nuevaPersona = Utils::guardarDatos();
+                    nuevaPersona.setID_Trabajador(id);
+                    cout << nuevaPersona.getID_Trabajador() << endl;
+                    lista->modificarPorID(id, nuevaPersona);
+                    lista->updatePersona(nuevaPersona, id);
+                }
+                else
+                {
+                    cout << Utils::EMPLOYEE_NOT_FOUND;
+                }
                 break;
             case 5:
                 int opcion;
