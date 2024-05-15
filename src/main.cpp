@@ -14,6 +14,7 @@ int main()
         Persona nuevaPersona;
         int ID_Trabajador;
         int option;
+        int id;
 
         do
         {
@@ -31,7 +32,6 @@ int main()
                 lista->mostrar();
                 break;
             case 3:
-                int id;
                 cout << Utils::DELET_EMPLOYEE_PROMPT;
                 cin >> id;
                 lista->eliminarEmpleado(id);
@@ -39,7 +39,7 @@ int main()
                 break;
             case 4:
                 cout << Utils::MODIFY_EMPLOYEE_PROMPT;
-                cin >> ID_Trabajador;
+                cin >> id;
                 lista->buscarPorID(id);
                 nuevaPersona = Utils::guardarDatos();
                 lista->modificarPorID(ID_Trabajador, nuevaPersona);

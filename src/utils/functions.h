@@ -130,10 +130,9 @@ Persona Utils::guardarDatos()
     cout << "Escriba Dirección: ";
     cin >> Direccion;
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
-    Telefono = obtenerNumeroValido("Escriba Telefono: ", 0, 99999999999L);
+    Telefono = to_string(obtenerNumeroValido("Escriba Telefono: ", 0, 99999999999L));
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
     Puesto = obtenerEntradaValida("Escriba Puesto: ");
-    cin.ignore(numeric_limits<streamsize>::max(), '\n');
     Departamento = obtenerEntradaValida("Escriba Departamento: ");
     HorasTrabajadas = obtenerNumeroValido("Escriba Horas Trabajadas: ", 0, 2400);
     CostoPorHora = obtenerNumeroValido("Escriba Costo Por Hora: ", 0, 700);
@@ -171,8 +170,8 @@ void Utils::mostrarEmpleado(Nodo *actual)
          << setw(10) << "ApellidoM" << "|"
          << setw(6) << "Sexo" << "|"
          << setw(4) << "Edad" << "|"
-         << setw(20) << "Direccion" << "|"
-         << setw(10) << "Telefono" << "|"
+         << setw(18) << "Direccion" << "|"
+         << setw(12) << "Telefono" << "|"
          << setw(8) << "Puesto" << "|"
          << setw(10) << "Dep." << "|"
          << setw(6) << "HorasT" << "|"
@@ -185,8 +184,8 @@ void Utils::mostrarEmpleado(Nodo *actual)
          << setw(10) << actual->persona.getApellidoMaterno() << "|"
          << setw(6) << actual->persona.getSexo() << "|"
          << setw(4) << actual->persona.getEdad() << "|"
-         << setw(20) << actual->persona.getDireccion() << "|"
-         << setw(10) << actual->persona.getTelefono() << "|"
+         << setw(18) << actual->persona.getDireccion() << "|"
+         << setw(12) << actual->persona.getTelefono() << "|"
          << setw(8) << actual->persona.getPuesto() << "|"
          << setw(10) << actual->persona.getDepartamento() << "|"
          << setw(6) << actual->persona.getHorasTrabajadas() << "|"
