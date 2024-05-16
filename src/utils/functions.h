@@ -27,6 +27,7 @@ public:
     static string obtenerEntradaValida(const string &mensaje);
     static long obtenerNumeroValido(const std::string &mensaje, int min, long max);
     static string obtenerEntradaConEspacios(const string &mensaje);
+    static string obtenerEntradaConEspaciosNumeros(const string &mensaje);
 
 private:
     static bool es_string(const string &s)
@@ -38,6 +39,17 @@ private:
         for (char c : str)
         {
             if (!isalpha(c) && !isspace(c))
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+    static bool es_string_numero_espacios(const string &str)
+    {
+        for (char c : str)
+        {
+            if (!isalpha(c) && !isspace(c) && !isdigit(c))
             {
                 return false;
             }
@@ -77,6 +89,18 @@ string Utils::obtenerEntradaConEspacios(const string &mensaje)
     while (!es_string_espacios(entrada))
     {
         cout << "La entrada tiene que ser caracteres. " << mensaje;
+        getline(cin, entrada);
+    }
+    return entrada;
+};
+string Utils::obtenerEntradaConEspaciosNumeros(const string &mensaje)
+{
+    string entrada;
+    cout << mensaje;
+    getline(cin, entrada);
+    while (!es_string_numero_espacios(entrada))
+    {
+        cout << "La entrada tiene que ser valida. " << mensaje;
         getline(cin, entrada);
     }
     return entrada;
@@ -127,11 +151,11 @@ Persona Utils::guardarDatos()
     Nombre = obtenerEntradaConEspacios("Escriba Nombre:");
     ApellidoPaterno = obtenerEntradaValida("Escriba Apellido Paterno: ");
     ApellidoMaterno = obtenerEntradaValida("Escriba Apellido Materno: ");
-    Direccion = obtenerEntradaConEspacios("Escriba Direccion:");
+    Direccion = obtenerEntradaConEspaciosNumeros("Escriba Direccion:");
     Sexo = obtenerEntradaValida("Escriba Sexo: ");
     Edad = obtenerNumeroValido("Escriba Edad: ", 18, 100);
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
-    Telefono = to_string(obtenerNumeroValido("Escriba Telefono: ", 0, 99999999L));
+    Telefono = to_string(obtenerNumeroValido("Escriba Telefono: ", 0, 999999999L));
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
     Puesto = obtenerEntradaValida("Escriba Puesto: ");
     Departamento = obtenerEntradaValida("Escriba Departamento: ");
