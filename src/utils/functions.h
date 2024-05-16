@@ -49,7 +49,7 @@ private:
     {
         for (char c : str)
         {
-            if (!isalpha(c) && !isspace(c) && !isdigit(c))
+            if (!isalpha(c) && !isspace(c) && !isdigit(c) && !ispunct(c))
             {
                 return false;
             }
