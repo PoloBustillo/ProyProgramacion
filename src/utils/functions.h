@@ -155,7 +155,7 @@ Persona Utils::guardarDatos()
     Sexo = obtenerEntradaValida("Escriba Sexo: ");
     Edad = obtenerNumeroValido("Escriba Edad: ", 18, 100);
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
-    Telefono = to_string(obtenerNumeroValido("Escriba Telefono: ", 0, 999999999L));
+    Telefono = to_string(obtenerNumeroValido("Escriba Telefono: ", 0, 9999999999L));
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
     Puesto = obtenerEntradaValida("Escriba Puesto: ");
     Departamento = obtenerEntradaValida("Escriba Departamento: ");
